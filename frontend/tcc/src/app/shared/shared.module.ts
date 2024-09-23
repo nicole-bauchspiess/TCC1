@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ChartModule } from 'primeng/chart';
-import { Toolbar, ToolbarModule } from 'primeng/toolbar';
+import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import {DialogService} from 'primeng/dynamicdialog';
@@ -20,7 +19,6 @@ import { ToolbarNavigationComponent } from './components/toolbar-navigation/tool
     ReactiveFormsModule,
     RouterModule,
     //prime
-    ChartModule,
     ToolbarModule,
     CardModule,
     ButtonModule
