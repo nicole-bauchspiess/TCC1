@@ -1,5 +1,5 @@
 import { CookieService } from 'ngx-cookie-service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SignUpUserResponse } from 'src/app/models/interfaces/user/SignUpUserResponse';
@@ -17,16 +17,15 @@ export class UserService {
 
   constructor(private http: HttpClient, private cookiService: CookieService) { }
 
-  signUpUser(signUpRequest: SignUpUserRequest): Observable<SignUpUserResponse> {
+  signupUser(requestDatas: SignUpUserRequest): Observable<SignUpUserResponse> {
     return this.http.post<SignUpUserResponse>(
-      `${this.API_URL}/user`, signUpRequest
-    )
+      `${this.API_URL}/user`,
+      requestDatas
+    );
   }
 
-  authUser(authRequest: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(
-      `${this.API_URL}/auth`, authRequest
-    )
+  authUser(requestDatas: AuthRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.API_URL}/auth`, requestDatas);
   }
 
   isLoggedIn(): boolean {

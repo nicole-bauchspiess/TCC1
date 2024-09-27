@@ -15,20 +15,21 @@ export class ProductsService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorizathion: `Bearer ${this.JWT_TOKEN}`
-    })
-  }
+      Authorization: `Bearer ${this.JWT_TOKEN}`,
+    }),
+  };
 
   constructor(
     private http: HttpClient,
     private cookie: CookieService
   ) { }
 
-  getAllProducts(): Observable<GetAllProductsResponse[]> {
-    return this.http.get<Array<GetAllProductsResponse>>(
-      `${this.API_URL}/products`, this.httpOptions
-    )
-    .pipe(map((product) => product.filter((data) => data?.amount > 0)));
-
+  getAllProducts(): Observable<Array<GetAllProductsResponse>> {
+    return this.http
+      .get<Array<GetAllProductsResponse>>(
+        `${this.API_URL}/products`,
+        this.httpOptions
+      )
+      .pipe(map((product) => product.filter((data) => data?.amount > 0)));
   }
 }
