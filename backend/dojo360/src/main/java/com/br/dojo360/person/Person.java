@@ -1,14 +1,11 @@
 package com.br.dojo360.person;
 
-import com.br.dojo360.address.Address;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
 
 @Getter
