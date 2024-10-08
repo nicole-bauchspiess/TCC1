@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name="student_exam")
 public class StudentExamEntity {
 
     @Id
