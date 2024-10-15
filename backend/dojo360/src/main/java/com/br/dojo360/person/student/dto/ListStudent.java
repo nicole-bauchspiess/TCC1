@@ -13,8 +13,4 @@ public record ListStudent (
         Belts belt,
         String phone
 ) {
-    public ListStudent (StudentEntity student) {
-        this (student.getName(), student.getCpf(), student.getBirthday(), student.getGender(),
-                student.getBelts(), student.getPhone());
-    }
 }

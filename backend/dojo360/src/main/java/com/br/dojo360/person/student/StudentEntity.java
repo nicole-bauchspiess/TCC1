@@ -4,6 +4,7 @@ import com.br.dojo360.belt.Belts;
 import com.br.dojo360.exam.studentexam.StudentExamEntity;
 import com.br.dojo360.person.Person;
 import com.br.dojo360.person.responsible.ResponsibleEntity;
+import com.br.dojo360.person.student.dto.CreateStudent;
 import com.br.dojo360.plan.PlanEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -41,4 +42,17 @@ public class StudentEntity extends Person {
     private List<StudentExamEntity> exams;
 
     //private List<Classes> classes;
+
+    public StudentEntity(CreateStudent createStudent) {
+        this.setName(createStudent.name());
+        this.setCpf(createStudent.cpf());
+        this.setBirthday(createStudent.birthday());
+        this.setGender(createStudent.gender());
+        this.setEmail(createStudent.email());
+        this.setPhone(createStudent.phone());
+        this.belts = createStudent.belt();
+        this.nFCK = createStudent.nFCK();
+        this.nCBK = createStudent.nCBK();
+        this.setStatus(createStudent.status());
+    }
 }

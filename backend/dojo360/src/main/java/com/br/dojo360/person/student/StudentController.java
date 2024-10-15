@@ -3,6 +3,7 @@ package com.br.dojo360.person.student;
 
 import com.br.dojo360.person.student.dto.CreateStudent;
 import com.br.dojo360.person.student.dto.ListStudent;
+import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @Autowired
+    @Inject
     private ModelMapper mapper;
 
     @GetMapping

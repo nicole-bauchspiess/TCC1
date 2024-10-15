@@ -1,6 +1,7 @@
 package com.br.dojo360.person.student.dto;
 
 import com.br.dojo360.belt.Belts;
+import com.br.dojo360.person.student.StudentEntity;
 
 import java.time.LocalDate;
 
@@ -12,8 +13,8 @@ public record CreateStudent(
         String email,
         String phone,
         Belts belt,
-        String nFCK,
-        String nCBK,
+        int nFCK,
+        int nCBK,
         String status
 ) {
 }
