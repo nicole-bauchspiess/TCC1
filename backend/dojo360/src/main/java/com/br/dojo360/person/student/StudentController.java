@@ -36,15 +36,12 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<CreateStudent> createStudent(@RequestBody CreateStudent newStudent) {
-        StudentEntity student = mapper.map(newStudent, StudentEntity.class);
-        studentService.insert(student);
-        var returnEntity = mapper.map(student, CreateStudent.class);
+
+        var returnEntity = studentService.createOrUpdateStudent(newStudent);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .buildAndExpand(student.getId()).toUri();
+                .buildAndExpand(returnEntity).toUri();
         return ResponseEntity.created(uri).body(returnEntity);
     }
-
-
 }

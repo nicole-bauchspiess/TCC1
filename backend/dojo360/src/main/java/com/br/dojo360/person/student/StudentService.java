@@ -3,7 +3,6 @@ package com.br.dojo360.person.student;
 import com.br.dojo360.person.student.dto.CreateStudent;
 import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,28 +24,48 @@ public class StudentService {
     }
 
     public StudentEntity findById(UUID uuid) {
+        if (Objects.isNull(uuid)) {
+            return new StudentEntity();
+        }
         Optional<StudentEntity> entityOptional = studentRepository.findById(uuid);
         if (entityOptional.isEmpty()) {
-            throw new NoSuchElementException("Student não encontrado");
+            throw new NoSuchElementException("Aluno não encontrado.");
         }
         return entityOptional.get();
     }
 
-    public StudentEntity insert(StudentEntity student) {
-        return studentRepository.save(student);
-    }
+    public CreateStudent createOrUpdateStudent(CreateStudent newStudent) {
+        var studentToSave = findById(newStudent.uuid());
 
-    public CreateStudent generateStudent(CreateStudent newStudent) {
-        StudentEntity student = mapper.map(newStudent, StudentEntity.class);
-        insert(student);
+        if (Objects.isNull(newStudent.uuid())) {
+            validateAge(newStudent);
+            validateCpf(newStudent.cpf());
+            validateDate(newStudent.birthday());
+        }
 
-        return mapper.map(student, CreateStudent.class);
+        studentToSave = mapper.map(newStudent, StudentEntity.class);
+        studentRepository.save(studentToSave);
+
+        return mapper.map(studentToSave, CreateStudent.class);
     }
 
     private void validateAge(CreateStudent newStudent) {
-        var age = Period.between(LocalDate.now(), newStudent.birthday()).getYears();
+        var age = Period.between(newStudent.birthday(), LocalDate.now()).getYears();
         if (age < 18) {
-            throw new IllegalArgumentException("Aluno menor de idade. Informe um responsável");
+            throw new IllegalArgumentException("Aluno menor de idade. Informe um responsável.");
+        }
+    }
+
+    private void validateCpf(String cpf) {
+        var studentOptional = studentRepository.findByCpf(cpf);
+        if (studentOptional.isPresent()) {
+            throw new IllegalArgumentException("CPF já cadastrado.");
+        }
+    }
+
+    private void validateDate(LocalDate date) {
+        if (date.isAfter(LocalDate.now()) || date.isBefore(LocalDate.of(1920, 1, 1))) {
+            throw new IllegalArgumentException("Data de nascimento inválida.");
         }
     }
 }

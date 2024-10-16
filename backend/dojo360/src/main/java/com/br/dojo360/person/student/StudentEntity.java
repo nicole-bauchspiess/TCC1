@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -42,17 +43,8 @@ public class StudentEntity extends Person {
     private List<StudentExamEntity> exams;
 
     //private List<Classes> classes;
-
-    public StudentEntity(CreateStudent createStudent) {
-        this.setName(createStudent.name());
-        this.setCpf(createStudent.cpf());
-        this.setBirthday(createStudent.birthday());
-        this.setGender(createStudent.gender());
-        this.setEmail(createStudent.email());
-        this.setPhone(createStudent.phone());
-        this.belts = createStudent.belt();
-        this.nFCK = createStudent.nFCK();
-        this.nCBK = createStudent.nCBK();
-        this.setStatus(createStudent.status());
+    public StudentEntity (UUID id) {
+        this.setId(id);
     }
+
 }

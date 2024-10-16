@@ -24,7 +24,13 @@ public class StudentMappingConfiguration {
                 .setConverter(new AbstractConverter<>() {
                     @Override
                     protected StudentEntity convert(CreateStudent createStudent) {
-                        var entity = new StudentEntity();
+                        StudentEntity entity;
+                        if (createStudent.uuid() == null) {
+                            entity = new StudentEntity();
+                        } else {
+                            entity = new StudentEntity(createStudent.uuid());
+                        }
+
                         entity.setName(createStudent.name());
                         entity.setCpf(createStudent.cpf());
                         entity.setBirthday(createStudent.birthday());
@@ -44,6 +50,7 @@ public class StudentMappingConfiguration {
                     @Override
                     protected CreateStudent convert(StudentEntity entity) {
                         return new CreateStudent(
+                                entity.getId(),
                                 entity.getName(),
                                 entity.getCpf(),
                                 entity.getBirthday(),
