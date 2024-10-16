@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/student")
 public class StudentController {
 
-    @Autowired
+    @Inject
     private StudentService studentService;
 
     @Inject

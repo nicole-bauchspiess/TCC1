@@ -12,10 +12,14 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity(name = "professor")
-@Table(name ="professor")
+@Table(name = "professor")
 public class ProfessorEntity extends Person {
 
-    public ProfessorEntity(){
+    public ProfessorEntity() {
         this.setId(UUID.randomUUID());
+    }
+
+    public ProfessorEntity(UUID uuid) {
+        this.setId(uuid);
     }
 }

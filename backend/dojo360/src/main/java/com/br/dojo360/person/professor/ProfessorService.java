@@ -1,28 +1,41 @@
 package com.br.dojo360.person.professor;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.br.dojo360.person.professor.dto.CreateProfessor;
+import jakarta.inject.Inject;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ProfessorService {
 
-    @Autowired
+    @Inject
     private ProfessorRepository professorRepository;
 
-    private List<ProfessorEntity> findAll(){
+    @Inject
+    private ModelMapper mapper;
+
+    private List<ProfessorEntity> findAll() {
         return professorRepository.findAll();
     }
 
     private ProfessorEntity findById(UUID uuid) {
+        if (Objects.isNull(uuid)) {
+            return new ProfessorEntity();
+        }
         Optional<ProfessorEntity> entityOptional = professorRepository.findById(uuid);
         if (entityOptional.isEmpty()) {
             throw new NoSuchElementException("Professor não encontrado");
         }
         return entityOptional.get();
     }
+
+    public CreateProfessor createOrUpdateProfessor(CreateProfessor newProfessor) {
+        var professorToSave = findById(newProfessor.uuid());
+        professorToSave = mapper.map(newProfessor, ProfessorEntity.class);
+        professorRepository.save(professorToSave);
+        return mapper.map(professorToSave, CreateProfessor.class);
+    }
+
 }
