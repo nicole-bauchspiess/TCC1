@@ -12,8 +12,6 @@ public record AddressData(
         String localidade,
         String bairro,
         String uf,
-        String complemento,
-        @NotBlank
-        String numero)
+        String complemento)
 {
 }
