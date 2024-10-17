@@ -28,4 +28,8 @@ public class PlanEntity {
         this.id = UUID.randomUUID();
     }
 
+    public PlanEntity (UUID id) {
+        this.setId(id);
+    }
+
 }
