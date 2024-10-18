@@ -1,5 +1,7 @@
 package com.br.dojo360.mapper;
 
+import com.br.dojo360.address.AddressData;
+import com.br.dojo360.address.AddressEntity;
 import com.br.dojo360.person.student.StudentEntity;
 import com.br.dojo360.person.student.dto.CreateStudent;
 import jakarta.annotation.PostConstruct;
@@ -10,6 +12,8 @@ import lombok.experimental.FieldDefaults;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Objects;
 
 @Configuration
 @RequiredArgsConstructor(onConstructor = @__({@Inject}))
@@ -30,7 +34,6 @@ public class StudentMappingConfiguration {
                         } else {
                             entity = new StudentEntity(createStudent.uuid());
                         }
-
                         entity.setName(createStudent.name());
                         entity.setCpf(createStudent.cpf());
                         entity.setBirthday(createStudent.birthday());
@@ -41,6 +44,7 @@ public class StudentMappingConfiguration {
                         entity.setNFCK(createStudent.nFCK());
                         entity.setNCBK(createStudent.nCBK());
                         entity.setStatus(createStudent.status());
+                        entity.setAddress(modelMapper.map(createStudent.address(), AddressEntity.class));
                         return entity;
                     }
                 });
@@ -49,6 +53,8 @@ public class StudentMappingConfiguration {
                 .setConverter(new AbstractConverter<>() {
                     @Override
                     protected CreateStudent convert(StudentEntity entity) {
+                        var address = entity.getAddress();
+                        //var responsible = entity.getResponsible();
                         return new CreateStudent(
                                 entity.getId(),
                                 entity.getName(),
@@ -60,7 +66,8 @@ public class StudentMappingConfiguration {
                                 entity.getBelts(),
                                 entity.getNFCK(),
                                 entity.getNCBK(),
-                                entity.getStatus()
+                                entity.getStatus(),
+                                modelMapper.map(address, AddressData.class)
                         );
                     }
                 });

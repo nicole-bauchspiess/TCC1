@@ -1,5 +1,6 @@
 package com.br.dojo360.person.professor;
 
+import com.br.dojo360.person.CreatePerson;
 import com.br.dojo360.person.professor.dto.CreateProfessor;
 import com.br.dojo360.person.student.dto.CreateStudent;
 import jakarta.inject.Inject;
@@ -23,7 +24,7 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateProfessor> createStudent(@RequestBody CreateProfessor newProfessor) {
+    public ResponseEntity<CreatePerson> createStudent(@RequestBody CreatePerson newProfessor) {
 
         var returnEntity = professorService.createOrUpdateProfessor(newProfessor);
 

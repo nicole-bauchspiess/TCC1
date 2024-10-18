@@ -1,7 +1,9 @@
 package com.br.dojo360.mapper;
 
+import com.br.dojo360.address.AddressData;
+import com.br.dojo360.address.AddressEntity;
+import com.br.dojo360.person.CreatePerson;
 import com.br.dojo360.person.professor.ProfessorEntity;
-import com.br.dojo360.person.professor.dto.CreateProfessor;
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
 import lombok.AccessLevel;
@@ -20,10 +22,10 @@ public class ProfessorMappingConfiguration {
 
     @PostConstruct
     public void doMapping() {
-        modelMapper.createTypeMap(CreateProfessor.class, ProfessorEntity.class)
+        modelMapper.createTypeMap(CreatePerson.class, ProfessorEntity.class)
                 .setConverter(new AbstractConverter<>() {
                     @Override
-                    protected ProfessorEntity convert(CreateProfessor createProfessor) {
+                    protected ProfessorEntity convert(CreatePerson createProfessor) {
                         ProfessorEntity entity;
                         if (createProfessor.uuid() == null) {
                             entity = new ProfessorEntity();
@@ -36,27 +38,27 @@ public class ProfessorMappingConfiguration {
                         entity.setEmail(createProfessor.email());
                         entity.setPhone(createProfessor.phone());
                         entity.setBirthday(createProfessor.birthday());
-                        // entity.setAddress(createProfessor.address());
+                        entity.setAddress(modelMapper.map(createProfessor.address(), AddressEntity.class));
                         entity.setStatus(createProfessor.status());
                         return entity;
                     }
                 });
 
-        modelMapper.createTypeMap(ProfessorEntity.class, CreateProfessor.class)
+        modelMapper.createTypeMap(ProfessorEntity.class, CreatePerson.class)
                 .setConverter(new AbstractConverter<>() {
                     @Override
-                    protected CreateProfessor convert(ProfessorEntity entity) {
-                        return new CreateProfessor(
-                                entity.getId(),      // UUID uuid
-                                entity.getName(),    // String name
-                                entity.getCpf(),     // String cpf
-                                entity.getGender(),   // char gender
-                                entity.getEmail(),    // String email
-                                entity.getPhone(),    // String phone
-                                entity.getBirthday(),  // LocalDate birthday
-                                // Uncomment if you have an Address field
-                                // entity.getAddress(),
-                                entity.getStatus()    // String status
+                    protected CreatePerson convert(ProfessorEntity entity) {
+                        var address = entity.getAddress();
+                        return new CreatePerson(
+                                entity.getId(),
+                                entity.getName(),
+                                entity.getCpf(),
+                                entity.getGender(),
+                                entity.getEmail(),
+                                entity.getPhone(),
+                                entity.getBirthday(),
+                                entity.getStatus(),
+                                modelMapper.map(address, AddressData.class)
                         );
                     }
                 });

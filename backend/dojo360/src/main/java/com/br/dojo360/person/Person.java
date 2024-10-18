@@ -1,7 +1,7 @@
 package com.br.dojo360.person;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import com.br.dojo360.address.AddressEntity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +21,10 @@ public class Person {
     private String email;
     private String phone;
     private LocalDate birthday;
-    //private Address address;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private AddressEntity address;
     private String status;
 
 

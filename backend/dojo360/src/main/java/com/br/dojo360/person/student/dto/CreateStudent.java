@@ -1,5 +1,6 @@
 package com.br.dojo360.person.student.dto;
 
+import com.br.dojo360.address.AddressData;
 import com.br.dojo360.belt.Belts;
 import jakarta.validation.constraints.NotBlank;
 
@@ -29,6 +30,7 @@ public record CreateStudent(
 
         int nFCK,
         int nCBK,
-        String status
+        String status,
+        AddressData address
 ) {
 }

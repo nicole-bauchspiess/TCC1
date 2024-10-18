@@ -19,4 +19,8 @@ public class ResponsibleEntity extends Person {
     public ResponsibleEntity(){
         this.setId(UUID.randomUUID());
     }
+
+    public ResponsibleEntity(UUID id) {
+        this.setId(id);
+    }
 }

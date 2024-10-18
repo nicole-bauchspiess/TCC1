@@ -1,5 +1,6 @@
 package com.br.dojo360.person.professor;
 
+import com.br.dojo360.person.CreatePerson;
 import com.br.dojo360.person.professor.dto.CreateProfessor;
 import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
@@ -31,11 +32,11 @@ public class ProfessorService {
         return entityOptional.get();
     }
 
-    public CreateProfessor createOrUpdateProfessor(CreateProfessor newProfessor) {
+    public CreatePerson createOrUpdateProfessor(CreatePerson newProfessor) {
         var professorToSave = findById(newProfessor.uuid());
         professorToSave = mapper.map(newProfessor, ProfessorEntity.class);
         professorRepository.save(professorToSave);
-        return mapper.map(professorToSave, CreateProfessor.class);
+        return mapper.map(professorToSave, CreatePerson.class);
     }
 
 }
