@@ -2,6 +2,8 @@ package com.br.dojo360.mapper;
 
 import com.br.dojo360.address.AddressData;
 import com.br.dojo360.address.AddressEntity;
+import com.br.dojo360.person.CreatePerson;
+import com.br.dojo360.person.responsible.ResponsibleEntity;
 import com.br.dojo360.person.student.StudentEntity;
 import com.br.dojo360.person.student.dto.CreateStudent;
 import jakarta.annotation.PostConstruct;
@@ -12,8 +14,6 @@ import lombok.experimental.FieldDefaults;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Objects;
 
 @Configuration
 @RequiredArgsConstructor(onConstructor = @__({@Inject}))
@@ -29,22 +29,27 @@ public class StudentMappingConfiguration {
                     @Override
                     protected StudentEntity convert(CreateStudent createStudent) {
                         StudentEntity entity;
-                        if (createStudent.uuid() == null) {
+                        if (createStudent.getUuid() == null) {
                             entity = new StudentEntity();
                         } else {
-                            entity = new StudentEntity(createStudent.uuid());
+                            entity = new StudentEntity(createStudent.getUuid());
                         }
-                        entity.setName(createStudent.name());
-                        entity.setCpf(createStudent.cpf());
-                        entity.setBirthday(createStudent.birthday());
-                        entity.setGender(createStudent.gender());
-                        entity.setEmail(createStudent.email());
-                        entity.setPhone(createStudent.phone());
-                        entity.setBelts(createStudent.belt());
-                        entity.setNFCK(createStudent.nFCK());
-                        entity.setNCBK(createStudent.nCBK());
-                        entity.setStatus(createStudent.status());
-                        entity.setAddress(modelMapper.map(createStudent.address(), AddressEntity.class));
+                        entity.setName(createStudent.getName());
+                        entity.setCpf(createStudent.getCpf());
+                        entity.setBirthday(createStudent.getBirthday());
+                        entity.setGender(createStudent.getGender());
+                        entity.setEmail(createStudent.getEmail());
+                        entity.setPhone(createStudent.getPhone());
+                        entity.setBelts(createStudent.getBelt());
+                        entity.setNFCK(createStudent.getNFCK());
+                        entity.setNCBK(createStudent.getNCBK());
+                        entity.setStatus(createStudent.getStatus());
+                        if (createStudent.getAddress() != null) {
+                            entity.setAddress(modelMapper.map(createStudent.getAddress(), AddressEntity.class));
+                        }
+                        if (createStudent.getResponsible() != null) {
+                            entity.setResponsible(modelMapper.map(createStudent.getResponsible(), ResponsibleEntity.class));
+                        }
                         return entity;
                     }
                 });
@@ -53,22 +58,28 @@ public class StudentMappingConfiguration {
                 .setConverter(new AbstractConverter<>() {
                     @Override
                     protected CreateStudent convert(StudentEntity entity) {
-                        var address = entity.getAddress();
-                        //var responsible = entity.getResponsible();
-                        return new CreateStudent(
-                                entity.getId(),
-                                entity.getName(),
-                                entity.getCpf(),
-                                entity.getBirthday(),
-                                entity.getGender(),
-                                entity.getEmail(),
-                                entity.getPhone(),
-                                entity.getBelts(),
-                                entity.getNFCK(),
-                                entity.getNCBK(),
-                                entity.getStatus(),
-                                modelMapper.map(address, AddressData.class)
-                        );
+
+                        CreateStudent createStudent = new CreateStudent();
+                        createStudent.setUuid(entity.getId());
+                        createStudent.setName(entity.getName());
+                        createStudent.setCpf(entity.getCpf());
+                        createStudent.setBirthday(entity.getBirthday());
+                        createStudent.setGender(entity.getGender());
+                        createStudent.setEmail(entity.getEmail());
+                        createStudent.setPhone(entity.getPhone());
+                        createStudent.setBelt(entity.getBelts());
+                        createStudent.setNFCK(entity.getNFCK());
+                        createStudent.setNCBK(entity.getNCBK());
+                        createStudent.setStatus(entity.getStatus());
+
+                        if (entity.getAddress() != null) {
+                            createStudent.setAddress(modelMapper.map(entity.getAddress(), AddressData.class));
+                        }
+
+                        if (entity.getResponsible() != null) {
+                            createStudent.setResponsible(modelMapper.map(entity.getResponsible(), CreatePerson.class));
+                        }
+                        return createStudent;
                     }
                 });
     }

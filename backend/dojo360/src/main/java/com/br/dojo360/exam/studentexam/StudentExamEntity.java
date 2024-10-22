@@ -2,18 +2,27 @@ package com.br.dojo360.exam.studentexam;
 
 import com.br.dojo360.belt.Belts;
 import com.br.dojo360.exam.ExamEntity;
+import com.br.dojo360.exam.dto.StudentExamStatus;
 import com.br.dojo360.person.student.StudentEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Table(name="student_exam")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class StudentExamEntity {
 
     @Id
     private UUID id;
-    private String status;
+    private StudentExamStatus status;
     private String paymentStatus;
 
     @Enumerated(EnumType.STRING)

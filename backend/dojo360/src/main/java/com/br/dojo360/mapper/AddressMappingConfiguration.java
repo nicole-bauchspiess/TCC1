@@ -24,14 +24,20 @@ public class AddressMappingConfiguration {
                 .setConverter(new AbstractConverter<>() {
                     @Override
                     protected AddressEntity convert(AddressData addressData) {
-                        AddressEntity entity = new AddressEntity();
-                        entity.setStreet(addressData.logradouro());
-                        entity.setCep(addressData.cep());
-                        entity.setCity(addressData.localidade());
-                        entity.setNeighborhood(addressData.bairro());
-                        entity.setState(addressData.uf());
-                        entity.setComplement(addressData.complemento());
-                        entity.setNumber(addressData.numero());
+                        AddressEntity entity;
+                        if (addressData.getUuid() == null) {
+                            entity = new AddressEntity();
+                        } else {
+                            entity = new AddressEntity(addressData.getUuid());
+                        }
+                        entity.setStreet(addressData.getStreet());
+                        entity.setCep(addressData.getCep());
+                        entity.setCity(addressData.getCity());
+                        entity.setNeighborhood(addressData.getNeighborhood());
+                        entity.setState(addressData.getState());
+                        entity.setComplement(addressData.getComplement());
+                        entity.setNumber(addressData.getNumber());
+
                         return entity;
                     }
                 });
@@ -40,15 +46,17 @@ public class AddressMappingConfiguration {
                 .setConverter(new AbstractConverter<>() {
                     @Override
                     protected AddressData convert(AddressEntity entity) {
-                        return new AddressData(
-                                entity.getStreet(),
-                                entity.getCep(),
-                                entity.getCity(),
-                                entity.getNeighborhood(),
-                                entity.getState(),
-                                entity.getComplement(),
-                                entity.getNumber()
-                        );
+                        AddressData addressData = new AddressData();
+                        addressData.setUuid(entity.getId());
+                        addressData.setStreet(entity.getStreet());
+                        addressData.setCep(entity.getCep());
+                        addressData.setCity(entity.getCity());
+                        addressData.setNeighborhood(entity.getNeighborhood());
+                        addressData.setState(entity.getState());
+                        addressData.setComplement(entity.getComplement());
+                        addressData.setNumber(entity.getNumber());
+
+                        return addressData;
                     }
                 });
     }

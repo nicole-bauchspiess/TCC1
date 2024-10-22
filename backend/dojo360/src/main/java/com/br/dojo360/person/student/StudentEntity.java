@@ -30,7 +30,7 @@ public class StudentEntity extends Person {
     @Enumerated(EnumType.STRING)
     private Belts belts;
 
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "responsible_id")
     private ResponsibleEntity responsible;
 

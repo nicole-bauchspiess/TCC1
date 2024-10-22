@@ -30,5 +30,7 @@ public class AddressEntity {
     public AddressEntity() {
         this.id = UUID.randomUUID();
     }
-
+    public AddressEntity (UUID id) {
+        this.id = id;
+    }
 }

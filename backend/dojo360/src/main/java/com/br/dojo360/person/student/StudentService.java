@@ -35,12 +35,12 @@ public class StudentService {
     }
 
     public CreateStudent createOrUpdateStudent(CreateStudent newStudent) {
-        var studentToSave = findById(newStudent.uuid());
+        var studentToSave = findById(newStudent.getUuid());
 
-        if (Objects.isNull(newStudent.uuid())) {
+        if (Objects.isNull(newStudent.getUuid())) {
             validateAge(newStudent);
-            validateCpf(newStudent.cpf());
-            validateDate(newStudent.birthday());
+            validateCpf(newStudent.getCpf());
+            validateDate(newStudent.getBirthday());
         }
 
         studentToSave = mapper.map(newStudent, StudentEntity.class);
@@ -50,9 +50,11 @@ public class StudentService {
     }
 
     private void validateAge(CreateStudent newStudent) {
-        var age = Period.between(newStudent.birthday(), LocalDate.now()).getYears();
-        if (age < 18) {
+        var age = Period.between(newStudent.getBirthday(), LocalDate.now()).getYears();
+        if (age < 18 && Objects.isNull(newStudent.getResponsible())) {
             throw new IllegalArgumentException("Aluno menor de idade. Informe um responsável.");
+        } else if (Objects.isNull(newStudent.getResponsible()) && Objects.isNull(newStudent.getAddress())) {
+            throw new IllegalArgumentException("Informe um endereço ou responsávvel.");
         }
     }
 

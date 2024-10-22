@@ -21,7 +21,7 @@ public class ProfessorService {
         return professorRepository.findAll();
     }
 
-    private ProfessorEntity findById(UUID uuid) {
+    public ProfessorEntity findById(UUID uuid) {
         if (Objects.isNull(uuid)) {
             return new ProfessorEntity();
         }
