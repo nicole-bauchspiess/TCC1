@@ -16,7 +16,6 @@ import java.util.UUID;
 @Table(name="student_exam")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class StudentExamEntity {
 
@@ -35,5 +34,9 @@ public class StudentExamEntity {
     @ManyToOne
     @JoinColumn(name="exam_id")
     private ExamEntity exam;
+
+    public StudentExamEntity () {
+        this.id = UUID.randomUUID();
+    }
 
 }

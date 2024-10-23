@@ -27,11 +27,12 @@ public class ExamEntity {
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
     private List<StudentExamEntity> students;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "professor_id")
     private ProfessorEntity professor;
 
     public ExamEntity () {
+        this.id = UUID.randomUUID();
         this.students = new ArrayList<>();
     }
 }
