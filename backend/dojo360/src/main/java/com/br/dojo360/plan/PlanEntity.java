@@ -5,7 +5,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @Entity(name = "plan")
-@Table(name ="plan")
+@Table(name = "plan")
 public class PlanEntity {
 
     @Id
@@ -28,7 +27,7 @@ public class PlanEntity {
         this.id = UUID.randomUUID();
     }
 
-    public PlanEntity (UUID id) {
+    public PlanEntity(UUID id) {
         this.setId(id);
     }
 

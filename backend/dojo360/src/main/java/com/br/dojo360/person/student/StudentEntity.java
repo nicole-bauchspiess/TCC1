@@ -21,7 +21,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "student")
-@Table(name ="student")
+@Table(name = "student")
 public class StudentEntity extends Person {
 
     private int nFCK;
@@ -47,7 +47,7 @@ public class StudentEntity extends Person {
     private AddressEntity address;
 
     //private List<Classes> classes;
-    public StudentEntity (UUID id) {
+    public StudentEntity(UUID id) {
         this.setId(id);
     }
 

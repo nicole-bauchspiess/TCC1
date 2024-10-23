@@ -1,7 +1,6 @@
 package com.br.dojo360.person.professor;
 
 import com.br.dojo360.person.CreatePerson;
-import com.br.dojo360.person.professor.dto.CreateProfessor;
 import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

@@ -16,7 +16,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @Entity(name = "exam")
-@Table(name ="exam")
+@Table(name = "exam")
 public class ExamEntity {
 
     @Id
@@ -31,7 +31,7 @@ public class ExamEntity {
     @JoinColumn(name = "professor_id")
     private ProfessorEntity professor;
 
-    public ExamEntity () {
+    public ExamEntity() {
         this.id = UUID.randomUUID();
         this.students = new ArrayList<>();
     }

@@ -1,7 +1,5 @@
 package com.br.dojo360.plan;
 
-import com.br.dojo360.person.student.StudentEntity;
-import com.br.dojo360.person.student.dto.CreateStudent;
 import com.br.dojo360.plan.dto.CreatePlan;
 import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;

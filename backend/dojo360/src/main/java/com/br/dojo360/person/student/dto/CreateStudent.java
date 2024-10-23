@@ -17,30 +17,30 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateStudent {
-        private UUID uuid;
+    private UUID uuid;
 
-        @NotBlank(message = "Nome do aluno é obrigatório.")
-        private String name;
+    @NotBlank(message = "Nome do aluno é obrigatório.")
+    private String name;
 
-        @NotBlank(message = "Documento é obrigatório.")
-        private String cpf;
+    @NotBlank(message = "Documento é obrigatório.")
+    private String cpf;
 
-        @NotBlank(message = "Data de nascimento é obrigatória.")
-        private LocalDate birthday;
+    @NotBlank(message = "Data de nascimento é obrigatória.")
+    private LocalDate birthday;
 
-        @NotBlank(message = "Gênero é obrigatório.")
-        private char gender;
+    @NotBlank(message = "Gênero é obrigatório.")
+    private char gender;
 
-        private String email;
-        private String phone;
+    private String email;
+    private String phone;
 
-        @NotBlank(message = "Faixa é obrigatória.")
-        private Belts belt;
+    @NotBlank(message = "Faixa é obrigatória.")
+    private Belts belt;
 
-        private int nFCK;
-        private int nCBK;
-        private String status;
-        private AddressData address;
-        private CreatePerson responsible;
+    private int nFCK;
+    private int nCBK;
+    private String status;
+    private AddressData address;
+    private CreatePerson responsible;
 
 }

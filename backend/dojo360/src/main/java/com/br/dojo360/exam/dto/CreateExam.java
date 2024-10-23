@@ -1,6 +1,5 @@
 package com.br.dojo360.exam.dto;
 
-import com.br.dojo360.exam.dto.CreateStudentExam;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +19,7 @@ public class CreateExam {
     private UUID professorId;
     private List<CreateStudentExam> studentExamList;
 
-    public CreateExam () {
+    public CreateExam() {
         this.studentExamList = new ArrayList<>();
     }
 }

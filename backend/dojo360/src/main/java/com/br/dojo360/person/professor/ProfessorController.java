@@ -1,8 +1,6 @@
 package com.br.dojo360.person.professor;
 
 import com.br.dojo360.person.CreatePerson;
-import com.br.dojo360.person.professor.dto.CreateProfessor;
-import com.br.dojo360.person.student.dto.CreateStudent;
 import jakarta.inject.Inject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

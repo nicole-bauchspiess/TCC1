@@ -15,22 +15,22 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddressData {
-        private UUID uuid;
+    private UUID uuid;
 
-        private String street;
+    private String street;
 
-        @NotBlank
-        @Pattern(regexp = "\\d{5}-?\\d{3}", message = "CEP inválido")
-        private String cep;
+    @NotBlank
+    @Pattern(regexp = "\\d{5}-?\\d{3}", message = "CEP inválido")
+    private String cep;
 
-        private String city;
+    private String city;
 
-        private String neighborhood;
+    private String neighborhood;
 
-        private String state;
+    private String state;
 
-        private String complement;
+    private String complement;
 
-        private String number;
+    private String number;
 
 }
