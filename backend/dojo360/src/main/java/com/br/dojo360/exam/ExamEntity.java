@@ -35,4 +35,8 @@ public class ExamEntity {
         this.id = UUID.randomUUID();
         this.students = new ArrayList<>();
     }
+
+    public ExamEntity (UUID id) {
+        this.id = id;
+    }
 }

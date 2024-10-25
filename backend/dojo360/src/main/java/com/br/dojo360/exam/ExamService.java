@@ -5,6 +5,7 @@ import com.br.dojo360.exam.dto.CreateExam;
 import com.br.dojo360.exam.dto.CreateStudentExam;
 import com.br.dojo360.exam.dto.StudentExamStatus;
 import com.br.dojo360.exam.studentexam.StudentExamEntity;
+import com.br.dojo360.exam.studentexam.StudentExamRepository;
 import com.br.dojo360.person.professor.ProfessorEntity;
 import com.br.dojo360.person.professor.ProfessorService;
 import com.br.dojo360.person.student.StudentEntity;
@@ -12,8 +13,9 @@ import com.br.dojo360.person.student.StudentService;
 import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ExamService {
@@ -30,8 +32,18 @@ public class ExamService {
     @Inject
     private ModelMapper mapper;
 
-    public CreateExam insertExam(CreateExam newExam) {
-        ExamEntity exam = new ExamEntity();
+    @Inject
+    private StudentExamRepository studentExamRepository;
+
+    @Transactional
+    public CreateExam createOrUpdateExam(CreateExam newExam) {
+        ExamEntity exam;
+        if (newExam.getUuid() == null) {
+            exam = new ExamEntity();
+        } else {
+            exam = findById(newExam.getUuid());
+            cleanStudentExam(exam);
+        }
         exam.setDate(newExam.getDate());
 
         var professor = findProfessorById(newExam.getProfessorId());
@@ -45,8 +57,13 @@ public class ExamService {
         return mapper.map(exam, CreateExam.class);
     }
 
+    private void cleanStudentExam(ExamEntity exam) {
+        exam.getStudents().forEach(s -> studentExamRepository.delete(s));
+        exam.getStudents().clear();
+    }
 
-    public void getStudentsExam(CreateStudentExam newStudentExam, ExamEntity exam) {
+
+    private void getStudentsExam(CreateStudentExam newStudentExam, ExamEntity exam) {
         var studentEntity = findStudentById(newStudentExam.getStudentId());
         StudentExamEntity studentExamEntity = new StudentExamEntity();
         studentExamEntity.setStudent(studentEntity);
@@ -67,6 +84,9 @@ public class ExamService {
             }
             newBelt = newStudentExam.getNewBelt();
         } else {
+            if (student.getBelts().equals(Belts.PRETA)) {
+                throw new IllegalArgumentException("Não é possível mudar de faixa.");
+            }
             newBelt = Belts.values()[actualBelt.ordinal() + 1];
         }
         return newBelt;
@@ -78,6 +98,14 @@ public class ExamService {
 
     public StudentEntity findStudentById(UUID studentId) {
         return studentService.findById(studentId);
+    }
+
+    public ExamEntity findById(UUID uuid) {
+        Optional<ExamEntity> entityOptional = examRepository.findById(uuid);
+        if (entityOptional.isEmpty()) {
+            throw new NoSuchElementException("Exame não encontrado.");
+        }
+        return entityOptional.get();
     }
 
 }

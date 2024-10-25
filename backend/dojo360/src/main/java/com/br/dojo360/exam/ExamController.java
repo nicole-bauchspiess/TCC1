@@ -20,7 +20,7 @@ public class ExamController {
 
     @PostMapping
     public ResponseEntity<CreateExam> insertExam(@RequestBody CreateExam newExam) {
-        var returnEntity = examService.insertExam(newExam);
+        var returnEntity = examService.createOrUpdateExam(newExam);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
