@@ -1,4 +1,4 @@
-package com.br.dojo360.mapper;
+package com.br.dojo360.configuration.mapper;
 
 
 import lombok.AccessLevel;

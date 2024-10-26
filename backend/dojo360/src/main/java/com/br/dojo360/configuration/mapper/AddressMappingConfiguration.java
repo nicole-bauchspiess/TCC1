@@ -1,4 +1,4 @@
-package com.br.dojo360.mapper;
+package com.br.dojo360.configuration.mapper;
 
 import com.br.dojo360.address.AddressData;
 import com.br.dojo360.address.AddressEntity;

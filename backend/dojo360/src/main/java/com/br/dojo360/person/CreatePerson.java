@@ -28,7 +28,7 @@ public record CreatePerson(
         @NotNull(message = "Data de nascimento é obrigatória.")
         LocalDate birthday,
 
-        String status,
+        boolean isEnable,
         AddressData address
 ) {
 }

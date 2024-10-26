@@ -12,14 +12,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CreateExam {
+public class ExamDTO {
 
     private UUID uuid;
     private LocalDateTime date;
     private UUID professorId;
     private List<CreateStudentExam> studentExamList;
 
-    public CreateExam() {
+    public ExamDTO() {
         this.studentExamList = new ArrayList<>();
     }
 }

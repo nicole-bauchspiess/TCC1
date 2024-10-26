@@ -1,7 +1,7 @@
 package com.br.dojo360.exam;
 
 import com.br.dojo360.belt.Belts;
-import com.br.dojo360.exam.dto.CreateExam;
+import com.br.dojo360.exam.dto.ExamDTO;
 import com.br.dojo360.exam.dto.CreateStudentExam;
 import com.br.dojo360.exam.dto.StudentExamStatus;
 import com.br.dojo360.exam.studentexam.StudentExamEntity;
@@ -36,7 +36,7 @@ public class ExamService {
     private StudentExamRepository studentExamRepository;
 
     @Transactional
-    public CreateExam createOrUpdateExam(CreateExam newExam) {
+    public ExamDTO createOrUpdateExam(ExamDTO newExam) {
         ExamEntity exam;
         if (newExam.getUuid() == null) {
             exam = new ExamEntity();
@@ -54,7 +54,27 @@ public class ExamService {
         });
 
         examRepository.save(exam);
-        return mapper.map(exam, CreateExam.class);
+        return mapper.map(exam, ExamDTO.class);
+    }
+
+    public void approveAllStudents(ExamDTO exam) {
+        var examEntity = findById(exam.getUuid());
+
+        examEntity.getStudents().forEach(s-> s.setStatus(StudentExamStatus.APPROVED));
+        examRepository.save(examEntity);
+    }
+
+    public void approveOrReproveSelected(ExamDTO createExam) {
+        var examEntity = findById(createExam.getUuid());
+
+        createExam.getStudentExamList().forEach(id -> {
+            examEntity.getStudents().forEach(studentExam -> {
+                if (studentExam.getId().equals(id.getStudentId())) {
+                    studentExam.setStatus(id.getStatus());
+                }
+            });
+        });
+        examRepository.save(examEntity);
     }
 
     private void cleanStudentExam(ExamEntity exam) {
@@ -73,11 +93,11 @@ public class ExamService {
         exam.getStudents().add(studentExamEntity);
     }
 
-    public Belts getNextBelt(StudentEntity student, CreateStudentExam newStudentExam) {
+    private Belts getNextBelt(StudentEntity student, CreateStudentExam newStudentExam) {
         Belts newBelt;
 
         var actualBelt = student.getBelts();
-        var initialBelts = student.getBelts().equals(Belts.BRANCA) || student.getBelts().equals(Belts.AZUL_CLARA) || student.getBelts().equals(Belts.AZUL_ESCURA);
+        var initialBelts = student.getBelts().equals(Belts.BRANCA) || student.getBelts().equals(Belts.AZUL_CLARA);
         if (initialBelts) {
             if (newStudentExam.getNewBelt() == null) {
                 throw new IllegalArgumentException("Informe uma faixa para alunos com faixas iniciais.");
@@ -92,15 +112,15 @@ public class ExamService {
         return newBelt;
     }
 
-    public ProfessorEntity findProfessorById(UUID profId) {
+    private ProfessorEntity findProfessorById(UUID profId) {
         return professorService.findById(profId);
     }
 
-    public StudentEntity findStudentById(UUID studentId) {
+    private StudentEntity findStudentById(UUID studentId) {
         return studentService.findById(studentId);
     }
 
-    public ExamEntity findById(UUID uuid) {
+    private ExamEntity findById(UUID uuid) {
         Optional<ExamEntity> entityOptional = examRepository.findById(uuid);
         if (entityOptional.isEmpty()) {
             throw new NoSuchElementException("Exame não encontrado.");

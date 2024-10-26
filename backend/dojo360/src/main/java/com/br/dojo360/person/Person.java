@@ -25,7 +25,7 @@ public class Person {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private AddressEntity address;
-    private String status;
+    private boolean isEnable;
 
 
     public Person() {

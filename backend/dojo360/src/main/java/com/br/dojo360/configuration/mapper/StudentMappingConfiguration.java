@@ -1,4 +1,4 @@
-package com.br.dojo360.mapper;
+package com.br.dojo360.configuration.mapper;
 
 import com.br.dojo360.address.AddressData;
 import com.br.dojo360.address.AddressEntity;
@@ -43,7 +43,7 @@ public class StudentMappingConfiguration {
                         entity.setBelts(createStudent.getBelt());
                         entity.setNFCK(createStudent.getNFCK());
                         entity.setNCBK(createStudent.getNCBK());
-                        entity.setStatus(createStudent.getStatus());
+                        entity.setEnable(createStudent.isEnable());
                         if (createStudent.getAddress() != null) {
                             entity.setAddress(modelMapper.map(createStudent.getAddress(), AddressEntity.class));
                         }
@@ -70,7 +70,7 @@ public class StudentMappingConfiguration {
                         createStudent.setBelt(entity.getBelts());
                         createStudent.setNFCK(entity.getNFCK());
                         createStudent.setNCBK(entity.getNCBK());
-                        createStudent.setStatus(entity.getStatus());
+                        createStudent.setEnable(entity.isEnable());
 
                         if (entity.getAddress() != null) {
                             createStudent.setAddress(modelMapper.map(entity.getAddress(), AddressData.class));

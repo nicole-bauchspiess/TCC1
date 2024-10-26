@@ -39,7 +39,7 @@ public class CreateStudent {
 
     private int nFCK;
     private int nCBK;
-    private String status;
+    private boolean isEnable;
     private AddressData address;
     private CreatePerson responsible;
 

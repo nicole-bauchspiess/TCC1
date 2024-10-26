@@ -20,6 +20,7 @@ public class StudentExamEntity {
 
     @Id
     private UUID id;
+    @Enumerated(EnumType.STRING)
     private StudentExamStatus status;
     private String paymentStatus;
 

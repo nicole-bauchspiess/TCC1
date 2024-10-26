@@ -1,7 +1,7 @@
-package com.br.dojo360.mapper;
+package com.br.dojo360.configuration.mapper;
 
 import com.br.dojo360.exam.ExamEntity;
-import com.br.dojo360.exam.dto.CreateExam;
+import com.br.dojo360.exam.dto.ExamDTO;
 import com.br.dojo360.exam.dto.CreateStudentExam;
 import com.br.dojo360.exam.studentexam.StudentExamEntity;
 import jakarta.annotation.PostConstruct;
@@ -26,11 +26,11 @@ public class ExamMappingConfiguration {
     public void doMapping() {
 
 
-        modelMapper.createTypeMap(ExamEntity.class, CreateExam.class)
-                .setConverter(new AbstractConverter<ExamEntity, CreateExam>() {
+        modelMapper.createTypeMap(ExamEntity.class, ExamDTO.class)
+                .setConverter(new AbstractConverter<ExamEntity, ExamDTO>() {
                     @Override
-                    protected CreateExam convert(ExamEntity examEntity) {
-                        CreateExam createExam = new CreateExam();
+                    protected ExamDTO convert(ExamEntity examEntity) {
+                        ExamDTO createExam = new ExamDTO();
                         createExam.setUuid(examEntity.getId());
                         createExam.setDate(examEntity.getDate());
                         createExam.setStudentExamList(

@@ -1,4 +1,4 @@
-package com.br.dojo360.mapper;
+package com.br.dojo360.configuration.mapper;
 
 import com.br.dojo360.address.AddressData;
 import com.br.dojo360.address.AddressEntity;
@@ -39,7 +39,7 @@ public class ProfessorMappingConfiguration {
                         entity.setPhone(createProfessor.phone());
                         entity.setBirthday(createProfessor.birthday());
                         entity.setAddress(modelMapper.map(createProfessor.address(), AddressEntity.class));
-                        entity.setStatus(createProfessor.status());
+                        entity.setEnable(createProfessor.isEnable());
                         return entity;
                     }
                 });
@@ -57,7 +57,7 @@ public class ProfessorMappingConfiguration {
                                 entity.getEmail(),
                                 entity.getPhone(),
                                 entity.getBirthday(),
-                                entity.getStatus(),
+                                entity.isEnable(),
                                 modelMapper.map(address, AddressData.class)
                         );
                     }
