@@ -46,7 +46,7 @@ public class StudentController {
         return ResponseEntity.created(uri).body(returnEntity);
     }
 
-    @PostMapping
+    @PostMapping("/filter")
     public ResponseEntity<Page<ListStudentDTO>> findAllFilteredAndPaginated(@RequestBody StudentFilter filter) {
         Page<ListStudentDTO> dados = studentService.findStudentsPaginated(filter);
         return ResponseEntity.ok().body(dados);

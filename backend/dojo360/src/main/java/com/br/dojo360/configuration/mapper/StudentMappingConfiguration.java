@@ -6,6 +6,7 @@ import com.br.dojo360.person.CreatePerson;
 import com.br.dojo360.person.responsible.ResponsibleEntity;
 import com.br.dojo360.person.student.StudentEntity;
 import com.br.dojo360.person.student.dto.CreateStudentDTO;
+import com.br.dojo360.person.student.dto.ListStudentDTO;
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
 import lombok.AccessLevel;
@@ -43,7 +44,7 @@ public class StudentMappingConfiguration {
                         entity.setBelts(createStudent.getBelt());
                         entity.setNFCK(createStudent.getNFCK());
                         entity.setNCBK(createStudent.getNCBK());
-                        entity.setEnable(createStudent.isEnable());
+                        entity.setIsEnable(createStudent.isEnable());
                         if (createStudent.getAddress() != null) {
                             entity.setAddress(modelMapper.map(createStudent.getAddress(), AddressEntity.class));
                         }
@@ -70,7 +71,7 @@ public class StudentMappingConfiguration {
                         createStudent.setBelt(entity.getBelts());
                         createStudent.setNFCK(entity.getNFCK());
                         createStudent.setNCBK(entity.getNCBK());
-                        createStudent.setEnable(entity.isEnable());
+                        createStudent.setEnable(entity.getIsEnable());
 
                         if (entity.getAddress() != null) {
                             createStudent.setAddress(modelMapper.map(entity.getAddress(), AddressData.class));
@@ -79,6 +80,22 @@ public class StudentMappingConfiguration {
                         if (entity.getResponsible() != null) {
                             createStudent.setResponsible(modelMapper.map(entity.getResponsible(), CreatePerson.class));
                         }
+                        return createStudent;
+                    }
+                });
+
+        modelMapper.createTypeMap(StudentEntity.class, ListStudentDTO.class)
+                .setConverter(new AbstractConverter<>() {
+                    @Override
+                    protected ListStudentDTO convert(StudentEntity entity) {
+
+                        ListStudentDTO createStudent = new ListStudentDTO();
+                        createStudent.setName(entity.getName());
+                        createStudent.setCpf(entity.getCpf());
+                        createStudent.setBirthday(entity.getBirthday());
+                        createStudent.setGender(entity.getGender());
+                        createStudent.setPhone(entity.getPhone());
+                        createStudent.setBelt(entity.getBelts());
                         return createStudent;
                     }
                 });

@@ -39,7 +39,7 @@ public class ProfessorMappingConfiguration {
                         entity.setPhone(createProfessor.phone());
                         entity.setBirthday(createProfessor.birthday());
                         entity.setAddress(modelMapper.map(createProfessor.address(), AddressEntity.class));
-                        entity.setEnable(createProfessor.isEnable());
+                        entity.setIsEnable(createProfessor.isEnable());
                         return entity;
                     }
                 });
@@ -57,7 +57,7 @@ public class ProfessorMappingConfiguration {
                                 entity.getEmail(),
                                 entity.getPhone(),
                                 entity.getBirthday(),
-                                entity.isEnable(),
+                                entity.getIsEnable(),
                                 modelMapper.map(address, AddressData.class)
                         );
                     }

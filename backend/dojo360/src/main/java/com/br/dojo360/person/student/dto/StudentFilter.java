@@ -36,9 +36,17 @@ public class StudentFilter {
         return (root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            validateAndAddPredicate("name", predicates, builder, root);
-            validateAndAddPredicate("cpf", predicates, builder, root);
+            if (name != null && !name.isBlank()) {
+                predicates.add(
+                        builder.like(builder.lower(root.get("name")), "%" + name.toLowerCase() + "%")
+                );
+            }
 
+            if (cpf != null && !cpf.isBlank()) {
+                predicates.add(
+                        builder.like(builder.lower(root.get("cpf")), "%" + cpf.toLowerCase() + "%")
+                );
+            }
 
             if (belts != null && !belts.isEmpty()) {
                 predicates.add(
@@ -68,14 +76,4 @@ public class StudentFilter {
             return builder.and(predicates.toArray(new Predicate[0]));
         };
     }
-
-    public void validateAndAddPredicate(String value, List<Predicate> predicates, CriteriaBuilder builder, Root root) {
-        if (value != null && !value.isBlank()) {
-            predicates.add(
-                    builder.like(builder.lower(root.get(value)), "%" + value.toLowerCase() + "%")
-            );
-        }
-    }
-
-
 }
