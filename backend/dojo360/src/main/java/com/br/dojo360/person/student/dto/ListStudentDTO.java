@@ -4,7 +4,7 @@ import com.br.dojo360.belt.Belts;
 
 import java.time.LocalDate;
 
-public record ListStudent(
+public record ListStudentDTO(
         String name,
         String cpf,
         LocalDate birthday,

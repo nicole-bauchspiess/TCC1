@@ -5,7 +5,7 @@ import com.br.dojo360.address.AddressEntity;
 import com.br.dojo360.person.CreatePerson;
 import com.br.dojo360.person.responsible.ResponsibleEntity;
 import com.br.dojo360.person.student.StudentEntity;
-import com.br.dojo360.person.student.dto.CreateStudent;
+import com.br.dojo360.person.student.dto.CreateStudentDTO;
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
 import lombok.AccessLevel;
@@ -24,10 +24,10 @@ public class StudentMappingConfiguration {
 
     @PostConstruct
     public void doMapping() {
-        modelMapper.createTypeMap(CreateStudent.class, StudentEntity.class)
+        modelMapper.createTypeMap(CreateStudentDTO.class, StudentEntity.class)
                 .setConverter(new AbstractConverter<>() {
                     @Override
-                    protected StudentEntity convert(CreateStudent createStudent) {
+                    protected StudentEntity convert(CreateStudentDTO createStudent) {
                         StudentEntity entity;
                         if (createStudent.getUuid() == null) {
                             entity = new StudentEntity();
@@ -54,12 +54,12 @@ public class StudentMappingConfiguration {
                     }
                 });
 
-        modelMapper.createTypeMap(StudentEntity.class, CreateStudent.class)
+        modelMapper.createTypeMap(StudentEntity.class, CreateStudentDTO.class)
                 .setConverter(new AbstractConverter<>() {
                     @Override
-                    protected CreateStudent convert(StudentEntity entity) {
+                    protected CreateStudentDTO convert(StudentEntity entity) {
 
-                        CreateStudent createStudent = new CreateStudent();
+                        CreateStudentDTO createStudent = new CreateStudentDTO();
                         createStudent.setUuid(entity.getId());
                         createStudent.setName(entity.getName());
                         createStudent.setCpf(entity.getCpf());

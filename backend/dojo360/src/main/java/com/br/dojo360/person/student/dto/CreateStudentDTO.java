@@ -16,7 +16,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateStudent {
+public class CreateStudentDTO {
     private UUID uuid;
 
     @NotBlank(message = "Nome do aluno é obrigatório.")
