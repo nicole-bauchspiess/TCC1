@@ -44,7 +44,7 @@ public class StudentMappingConfiguration {
                         entity.setBelts(createStudent.getBelt());
                         entity.setNFCK(createStudent.getNFCK());
                         entity.setNCBK(createStudent.getNCBK());
-                        entity.setIsEnable(createStudent.isEnable());
+                        entity.setIsEnable(true);
                         if (createStudent.getAddress() != null) {
                             entity.setAddress(modelMapper.map(createStudent.getAddress(), AddressEntity.class));
                         }

@@ -39,7 +39,7 @@ public class ResponsibleMappingConfiguration {
                         entity.setPhone(createResponsible.phone());
                         entity.setBirthday(createResponsible.birthday());
                         entity.setAddress(modelMapper.map(createResponsible.address(), AddressEntity.class));
-                        entity.setIsEnable(createResponsible.isEnable());
+                        entity.setIsEnable(true);
                         return entity;
                     }
                 });

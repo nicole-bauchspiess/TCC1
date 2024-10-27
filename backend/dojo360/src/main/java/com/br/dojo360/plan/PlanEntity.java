@@ -22,6 +22,7 @@ public class PlanEntity {
     private int weeklyFrequency;
     private int personalFrequency;
     private double value;
+    private boolean personal;
 
     public PlanEntity() {
         this.id = UUID.randomUUID();

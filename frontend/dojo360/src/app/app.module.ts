@@ -7,20 +7,21 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import {HttpClientModule} from '@angular/common/http';
-import { HomeComponent } from './modules/home/home.component'
 
 import {CardModule} from 'primeng/card';
-import {InputTextModule} from 'primeng/inputtext'
-import {ButtonModule} from 'primeng/button'
-import {ToastModule} from 'primeng/toast'
-import { CookieService } from 'ngx-cookie-service';
+import {InputTextModule} from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MenuModule } from 'primeng/menu';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +34,10 @@ import { SidebarModule } from 'primeng/sidebar';
     InputTextModule,
     ButtonModule,
     ToastModule,
-    SidebarModule
-
+    SidebarModule,
+    MenuModule
   ],
-  providers: [CookieService, MessageService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

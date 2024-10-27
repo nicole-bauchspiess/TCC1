@@ -7,6 +7,7 @@ public record CreatePlan(
         String description,
         int weeklyFrequency,
         int personalFrequency,
-        double value
+        double value,
+        boolean personal
 ) {
 }

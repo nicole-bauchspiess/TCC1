@@ -48,7 +48,8 @@ public class PlanMappingConfiguration {
                                 entity.getDescription(),
                                 entity.getWeeklyFrequency(),
                                 entity.getPersonalFrequency(),
-                                entity.getValue()
+                                entity.getValue(),
+                                entity.isPersonal()
                         );
                     }
                 });
