@@ -17,7 +17,6 @@ import { SidebarModule } from 'primeng/sidebar';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MenuModule } from 'primeng/menu';
 
-
 @NgModule({
   declarations: [
     AppComponent,

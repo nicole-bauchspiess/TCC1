@@ -7,12 +7,6 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
-  sidebarVisible = true;
-
-  hello () {
-    console.log("ola")
-  }
-
   items = [
     { label: 'Home', icon: 'pi pi-home'},
     { label: 'Perfil', icon: 'pi pi-user' },
